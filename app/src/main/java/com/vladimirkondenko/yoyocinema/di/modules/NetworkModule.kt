@@ -13,13 +13,13 @@ object NetworkModule {
 
     fun create() = module {
         single(Ui) { AndroidSchedulers.mainThread() }
-        single(Worker) { Schedulers.io() }
+        single(Worker) { Schedulers.newThread() }
         single { RxJava2CallAdapterFactory.create() }
         single { GsonConverterFactory.create() }
         single {
             Retrofit.Builder()
-                    .addCallAdapterFactory(get())
-                    .addConverterFactory(get())
+                    .addCallAdapterFactory(get() as RxJava2CallAdapterFactory)
+                    .addConverterFactory(get() as GsonConverterFactory)
                     .baseUrl("https://api.themoviedb.org/3/")
                     .build()
         }

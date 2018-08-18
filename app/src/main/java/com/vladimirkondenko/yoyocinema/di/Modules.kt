@@ -2,6 +2,7 @@ package com.vladimirkondenko.yoyocinema.di
 
 import com.vladimirkondenko.yoyocinema.di.modules.MainModule
 import com.vladimirkondenko.yoyocinema.di.modules.NetworkModule
+import com.vladimirkondenko.yoyocinema.di.modules.SearchModule
 
 /**
  * Creating a mutable list of all required modules
@@ -9,5 +10,6 @@ import com.vladimirkondenko.yoyocinema.di.modules.NetworkModule
  */
 fun getModules() = mutableListOf(
         MainModule.create(),
-        NetworkModule.create()
+        NetworkModule.create(),
+        SearchModule.create()
 )

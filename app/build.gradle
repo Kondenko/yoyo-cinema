@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -26,23 +27,23 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     def ktx_version = "1.0.0-rc01"
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.fragment:fragment-ktx:$ktx_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0-rc01"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0-rc01'
 
-    // the version is defined in /build.gradle
+    def support_version = "1.0.0-rc01"
     implementation "androidx.appcompat:appcompat:$support_version"
     implementation "androidx.recyclerview:recyclerview:$support_version"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha2"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
 
     def lifecycle_version = "2.0.0-rc01"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     def room_version = "2.0.0-rc01"
@@ -56,18 +57,18 @@ dependencies {
 
     def koin_version = "1.0.0-beta-6"
     implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-android-viewmodel:$koin_version"
+    implementation "org.koin:koin-test:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     def retrofit_version = "2.4.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    def rxjava_version = "2.2.0"
-    def rxkotlin_version = "2.2.0"
-    def rxandroid_version = "2.0.2"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.0"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.2.0"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
+    testImplementation 'junit:junit:4.12'
 
 }
