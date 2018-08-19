@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.vladimirkondenko.yoyocinema"
 
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 28
 
         versionCode 1
@@ -29,37 +29,47 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     def ktx_version = "1.0.0-rc01"
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.fragment:fragment-ktx:$ktx_version"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0-rc01'
+
     def support_version = "1.0.0-rc01"
     implementation "androidx.appcompat:appcompat:$support_version"
     implementation "androidx.recyclerview:recyclerview:$support_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'com.google.android.material:material:1.0.0-rc01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+
     def lifecycle_version = "2.0.0-rc01"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
     def room_version = "2.0.0-rc01"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
     def paging_version = "2.0.0-rc01"
     implementation "androidx.paging:paging-runtime:$paging_version"
     implementation "androidx.paging:paging-rxjava2:$paging_version"
+
     def koin_version = "1.0.0-beta-6"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-test:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+
     def retrofit_version = "2.4.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
-    testImplementation 'junit:junit:4.12'
+
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    testImplementation 'junit:junit:4.12'
 }

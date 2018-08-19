@@ -4,7 +4,7 @@ object ImageAddress {
 
     enum class Size(val size: String) {
         SMALL("w185"),
-        LARGE("W780"),
+        LARGE("w780"),
         ORIGINAL("original")
     }
 

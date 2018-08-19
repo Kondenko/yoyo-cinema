@@ -6,6 +6,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DetailsTheme" parent="AppTheme">
+        <item name="colorAccent">@color/colorWhite</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <style name="Card" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">8dp</item>
         <item name="cardElevation">2dp</item>

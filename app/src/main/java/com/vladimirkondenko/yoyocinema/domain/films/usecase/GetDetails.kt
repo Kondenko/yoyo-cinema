@@ -1,8 +1,8 @@
-package com.vladimirkondenko.yoyocinema.domain.filmdetails.usecase
+package com.vladimirkondenko.yoyocinema.domain.films.usecase
 
 import com.vladimirkondenko.yoyocinema.data.filmdetails.repository.FilmDetailsRepository
 import com.vladimirkondenko.yoyocinema.domain.UseCaseSingle
-import com.vladimirkondenko.yoyocinema.domain.filmdetails.model.FilmDetails
+import com.vladimirkondenko.yoyocinema.domain.films.model.FilmDetails
 import com.vladimirkondenko.yoyocinema.utils.ImageAddress
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -33,7 +33,7 @@ class GetDetails(private val repository: FilmDetailsRepository, uiScheduler: Sch
                             it.releaseDate?.formatReleaseDate()?:"",
                             it.voteAverage?:0f,
                             it.voteCount?:0,
-                            it.posterPath?.let { ImageAddress.getUrlForImage(it, ImageAddress.Size.LARGE)}?:"",
+                            it.posterPath?.let { ImageAddress.getUrlForImage(it, ImageAddress.Size.SMALL)}?:"",
                             it.backdropPath?.let { ImageAddress.getUrlForImage(it, ImageAddress.Size.LARGE)}?:""
                     )
                 }

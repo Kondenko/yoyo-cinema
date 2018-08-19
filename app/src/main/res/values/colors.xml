@@ -5,4 +5,5 @@
     <color name="colorAccent">#000000</color>
     <color name="colorFilmCardTextPrimary">#000000</color>
     <color name="colorFilmCardTextSecondary">#c1000000</color>
+    <color name="colorWhite">#ffff</color>
 </resources>

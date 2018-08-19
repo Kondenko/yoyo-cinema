@@ -5,4 +5,8 @@
 
     <string name="item_film_rating_template">%.1f/10</string>
 
+    <string name="film_details_review_numbers_template">Based on %d reviews</string>
+    <string name="film_details_release_date_template">Relese date: %s</string>
+    <string name="film_details_runtime_template">Runtime: %s</string>
+
 </resources>

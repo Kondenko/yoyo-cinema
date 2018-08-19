@@ -1,7 +1,11 @@
-package com.vladimirkondenko.yoyocinema.domain.filmdetails.model
+package com.vladimirkondenko.yoyocinema.domain.films.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class FilmDetails(
-        val id: Int,
+        @PrimaryKey val id: Int,
         val title: String,
         val overview: String,
         val genres: List<String>,

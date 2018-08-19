@@ -1,5 +1,14 @@
 package com.vladimirkondenko.yoyocinema.utils
 
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
 import retrofit2.Retrofit
 
-inline fun <reified T> Retrofit.create() = this.create(T::class.java)
+inline fun <reified T> Retrofit.create(): T = this.create(T::class.java)
+
+inline fun <reified T : Activity> Activity.startActivity(extras: Bundle? = null) {
+    val intent = Intent(this, T::class.java)
+    extras?.let { intent.putExtras(extras) }
+    startActivity(intent)
+}

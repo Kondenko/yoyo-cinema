@@ -43,7 +43,7 @@ class SearchFragment : BaseFragment() {
                 .observeOn(uiScheduler)
                 .doOnNext { if (it.isEmpty()) vm.onSearchCleared() }
                 .filter { it.length > 2 }
-                .debounce(500, TimeUnit.MILLISECONDS)
+                .debounce(250, TimeUnit.MILLISECONDS)
                 .map { it.toString() }
                 .subscribe(vm::search)
         viewDisposables += filmAdapter.itemClicks.debounce(300, TimeUnit.MILLISECONDS).subscribe(filmClicks::onNext)
