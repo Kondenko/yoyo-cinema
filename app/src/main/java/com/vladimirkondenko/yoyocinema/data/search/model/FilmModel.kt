@@ -24,7 +24,7 @@ class FilmModel {
     val popularity: Float? = null
     @SerializedName("poster_path")
     @Expose
-    val posterPath: Any? = null
+    val posterPath: String? = null // The type was "Any" before, but JSON schemas seem to be always returning a string
     @SerializedName("original_language")
     @Expose
     val originalLanguage: String? = null

@@ -13,14 +13,10 @@ import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 
-object SearchModule {
-
-    fun create() = module {
-        single { (context: Context) -> FilmAdapter(context) }
-        viewModel { SearchViewModel(get()) }
-        single { SearchMovie(get(), get(Ui), get(Worker)) }
-        single { SearchRepository(get()) }
-        single { get<Retrofit>().create<SearchService>() }
-    }
-
+val searchModule = module {
+    single { (context: Context) -> FilmAdapter(context) }
+    viewModel { SearchViewModel(get()) }
+    single { SearchMovie(get(), get(Ui), get(Worker)) }
+    single { SearchRepository(get()) }
+    single { get<Retrofit>().create<SearchService>() }
 }

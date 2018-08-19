@@ -3,6 +3,7 @@ package com.vladimirkondenko.yoyocinema.domain.search.usecase
 import com.vladimirkondenko.yoyocinema.data.search.repository.SearchRepository
 import com.vladimirkondenko.yoyocinema.domain.UseCaseSingle
 import com.vladimirkondenko.yoyocinema.domain.search.model.Film
+import com.vladimirkondenko.yoyocinema.utils.ImageAddress
 import io.reactivex.Scheduler
 import io.reactivex.Single
 
@@ -23,9 +24,9 @@ class SearchMovie(private val searchRepository: SearchRepository, uiScheduler: S
                 }
                 .map {
                     it.map {
-                    val year = it.releaseDate?.slice(0..3)?.toInt() // awkwardly parsing the year from a yyyy-mm-dd formatted date TODO replace with proper parsing
-                    val posterUrl = "http://image.tmdb.org/t/p/w185/${it.posterPath}"
-                    Film(it.id?:0, it.title ?: "", year ?: -1, it.voteAverage ?: -1f, posterUrl)
+                        val year = it.releaseDate?.slice(0..3)?.toInt() // awkwardly parsing the year from a yyyy-mm-dd formatted date
+                        val posterUrl = it.posterPath?.let { path -> ImageAddress.getUrlForImage(path, ImageAddress.Size.SMALL) } ?: ""
+                        Film(it.id ?: 0, it.title ?: "", year ?: -1, it.voteAverage ?: -1f, posterUrl)
                     }
                 }
     }

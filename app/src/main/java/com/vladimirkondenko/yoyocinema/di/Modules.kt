@@ -1,16 +1,16 @@
 package com.vladimirkondenko.yoyocinema.di
 
-import android.content.Context
-import com.vladimirkondenko.yoyocinema.di.modules.MainModule
-import com.vladimirkondenko.yoyocinema.di.modules.NetworkModule
-import com.vladimirkondenko.yoyocinema.di.modules.SearchModule
+import com.vladimirkondenko.yoyocinema.di.modules.filmDetailsModule
+import com.vladimirkondenko.yoyocinema.di.modules.mainModule
+import com.vladimirkondenko.yoyocinema.di.modules.networkModule
+import com.vladimirkondenko.yoyocinema.di.modules.searchModule
 
 /**
- * Creates a mutable list of all required modules
- * so that we can replace and add modules in tests.
+ * A mutable list of all required modules, where we can replace and add modules whenever necessary.
  */
-fun getModules(context: Context) = mutableListOf(
-        MainModule.create(),
-        NetworkModule.create(),
-        SearchModule.create()
+val modules = mutableListOf(
+        mainModule,
+        networkModule,
+        searchModule,
+        filmDetailsModule
 )

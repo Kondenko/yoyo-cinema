@@ -22,7 +22,7 @@ abstract class BaseAdapter<I, VH : BaseAdapter.BaseViewHolder<I>>(protected var 
 
     private val layoutInflater = LayoutInflater.from(context)
 
-    protected val viewEventsDisposables = CompositeDisposable()
+    private val viewEventsDisposables = CompositeDisposable()
 
     val itemClicks = PublishSubject.create<I>()
 
@@ -41,7 +41,7 @@ abstract class BaseAdapter<I, VH : BaseAdapter.BaseViewHolder<I>>(protected var 
     override fun onBindViewHolder(vh: VH, position: Int) {
         val item = items[position]
         vh.bindItem(item)
-        viewEventsDisposables += RxView.clicks(vh.view).subscribe { itemClicks::onNext }
+        viewEventsDisposables += RxView.clicks(vh.view).subscribe { _ -> itemClicks.onNext(item) }
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {

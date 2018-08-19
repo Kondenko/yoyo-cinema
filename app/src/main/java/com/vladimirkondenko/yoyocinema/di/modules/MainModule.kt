@@ -1,12 +1,13 @@
 package com.vladimirkondenko.yoyocinema.di.modules
 
+import android.annotation.SuppressLint
+import com.vladimirkondenko.yoyocinema.di.defaultLocale
 import com.vladimirkondenko.yoyocinema.presentation.search.SearchFragment
 import org.koin.dsl.module.module
+import java.util.*
 
-object MainModule {
-
-    fun create() = module {
-        single { SearchFragment() }
-    }
-
+@SuppressLint("ConstantLocale")
+val mainModule = module {
+    single { SearchFragment() }
+    factory(defaultLocale) { Locale.getDefault() }
 }

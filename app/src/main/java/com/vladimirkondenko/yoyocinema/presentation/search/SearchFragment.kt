@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.jakewharton.rxbinding2.widget.RxSearchView
 import com.vladimirkondenko.yoyocinema.R
 import com.vladimirkondenko.yoyocinema.di.Ui
+import com.vladimirkondenko.yoyocinema.domain.search.model.Film
 import com.vladimirkondenko.yoyocinema.presentation.BaseFragment
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,15 +23,15 @@ import java.util.concurrent.TimeUnit
 
 class SearchFragment : BaseFragment() {
 
-    private val TAG = this.javaClass.simpleName
-
     private val vm: SearchViewModel by viewModel()
 
     private val uiScheduler: Scheduler by inject(Ui)
 
     private val filmAdapter: FilmAdapter by inject { parametersOf(context as Any) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
+    private val filmClicks = PublishSubject.create<Film>()
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.fragment_search, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +46,9 @@ class SearchFragment : BaseFragment() {
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .map { it.toString() }
                 .subscribe(vm::search)
+        viewDisposables += filmAdapter.itemClicks.debounce(300, TimeUnit.MILLISECONDS).subscribe(filmClicks::onNext)
         vm.state(this) { state ->
+            // TODO Handle each state
             when(state) {
                 is SearchState.Initial -> {
                     filmAdapter.clear()
@@ -55,5 +60,9 @@ class SearchFragment : BaseFragment() {
         }
     }
 
+    /**
+     * Get an obsER
+     */
+    fun filmClicks() = filmClicks as Observable<Film>
 
 }
