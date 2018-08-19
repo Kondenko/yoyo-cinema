@@ -11,7 +11,7 @@ private const val pageParam = "page"
 
 interface SearchService {
 
-    @GET("search/movie?api_key=$apiKey&query=$queryParam&page=$pageParam")
-    fun searchMovies(@Query(queryParam) query: String, @Query(pageParam) page: Int): Single<SearchResultModel>
+    @GET("search/movie?api_key=$apiKey")
+    fun searchFilms(@Query(queryParam) query: String, @Query(pageParam) page: Int): Single<SearchResultModel>
 
 }

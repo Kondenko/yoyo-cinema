@@ -3,4 +3,6 @@
     <color name="colorPrimary">#ffff</color>
     <color name="colorPrimaryDark">#cacaca</color>
     <color name="colorAccent">#000000</color>
+    <color name="colorFilmCardTextPrimary">#000000</color>
+    <color name="colorFilmCardTextSecondary">#c1000000</color>
 </resources>

@@ -16,16 +16,16 @@ class SearchMovie(private val searchRepository: SearchRepository, uiScheduler: S
     data class Params(val query: String, val page: Int)
 
     override fun build(params: Params): Single<List<Film>> {
-        return searchRepository.searchMovide(params.query, params.page)
+        return searchRepository.searchMovie(params.query, params.page)
                 .flatMap {
                     if (it.results != null) Single.just(it.results)
-                    else Single.error(NullPointerException("Search results not found"))
+                    else Single.error(NullPointerException("Films are not found"))
                 }
                 .map {
                     it.map {
                     val year = it.releaseDate?.slice(0..3)?.toInt() // awkwardly parsing the year from a yyyy-mm-dd formatted date TODO replace with proper parsing
-                    val posterUrl = " http://image.tmdb.org/t/p/w185/${it.posterPath}"
-                    Film(it.title ?: "", year ?: -1, it.voteAverage ?: -1f, posterUrl)
+                    val posterUrl = "http://image.tmdb.org/t/p/w185/${it.posterPath}"
+                    Film(it.id?:0, it.title ?: "", year ?: -1, it.voteAverage ?: -1f, posterUrl)
                     }
                 }
     }

@@ -28,10 +28,13 @@ class SearchViewModel(private val searchMovie: SearchMovie) : ViewModel() {
     fun search(query: String) {
         // TODO Use pagination
         val page = 1
-        state.postValue(SearchState.Loading(page))
+        state.postValue(SearchState.Loading())
         searchMovie.execute(
                 SearchMovie.Params(query, page),
-                onSuccess = searchResults::postValue,
+                onSuccess = {
+                    state.postValue(SearchState.Success(page))
+                    searchResults.value = it
+                },
                 onError = { t -> state.value = SearchState.Error(page, t) }
         )
     }
@@ -40,4 +43,5 @@ class SearchViewModel(private val searchMovie: SearchMovie) : ViewModel() {
         searchMovie.dispose()
         super.onCleared()
     }
+
 }
