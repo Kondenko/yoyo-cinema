@@ -12,7 +12,7 @@ import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import com.squareup.picasso.Picasso
 import com.vladimirkondenko.yoyocinema.R
 import com.vladimirkondenko.yoyocinema.utils.showErrorSnackbar
-import kotlinx.android.synthetic.main.fragment_film_details.*
+import kotlinx.android.synthetic.main.activity_film_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -30,7 +30,7 @@ class FilmDetailsActivity : AppCompatActivity() {
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_film_details)
+        setContentView(R.layout.activity_film_details)
         if (intent?.extras != null) {
             (intent!!.extras!!.getInt(argId) ?: invalidId).let {
                 id = it
@@ -60,12 +60,11 @@ class FilmDetailsActivity : AppCompatActivity() {
                     Picasso.get().load(film.posterPath).into(details_imageview_poster)
                     film_details_textview_title.text = film.title
                     film_details_textview_avg_rating.text = film.voteAverage.toString()
-                    film_details_textview_reviews_number.text = getString(R.string.film_details_review_numbers_template, film.voteCount) ?: ""
-                    if (film.releaseDate.isNotEmpty()) film_details_textview_release.text = getString(R.string.film_details_release_date_template, film.releaseDate)
+                    if (film.releaseDate.isNotEmpty()) film_details_textview_release.text = film.releaseDate
                     else film_details_textview_release.isGone = true
                     if (film.genres.isNotEmpty()) film_details_textview_genres.text = film.genres.joinToString(", ")
                     else film_details_textview_genres.isGone = true
-                    if (film.runtime.isNotEmpty()) film_details_textview_runtime.text = getString(R.string.film_details_runtime_template, film.runtime)
+                    if (film.runtime.isNotEmpty()) film_details_textview_runtime.text = film.runtime
                     if (film.overview.isNotEmpty()) film_details_textview_overview.text = film.overview
                     else film_details_textview_overview.isGone = true
                 }

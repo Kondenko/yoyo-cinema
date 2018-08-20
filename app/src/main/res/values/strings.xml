@@ -17,9 +17,16 @@
     <string name="favorites_error_message">Couldn\'t load favorites</string>
 
     <string name="film_details_review_numbers_template">%d reviews</string>
-    <string name="film_details_release_date_template">Release date: %s</string>
-    <string name="film_details_runtime_template">Runtime: %s</string>
     <string name="film_details_error_message">Unable to load film details</string>
     <string name="film_details_favorite_error_message">Can\'t determine if the film is marked as favorite</string>
+
+    <string-array name="search_hints">
+        <item>Star Wars</item>
+        <item>Harry Potter</item>
+        <item>Fight Club</item>
+        <item>Lord of the Rings</item>
+        <item>The Matrix</item>
+        <item>Deadpool</item>
+    </string-array>
 
 </resources>

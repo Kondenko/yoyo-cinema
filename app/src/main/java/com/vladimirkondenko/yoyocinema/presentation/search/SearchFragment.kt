@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import com.jakewharton.rxbinding2.widget.RxSearchView
 import com.vladimirkondenko.yoyocinema.R
 import com.vladimirkondenko.yoyocinema.presentation.common.FilmFragment
+import com.vladimirkondenko.yoyocinema.utils.getRandomItem
 import com.vladimirkondenko.yoyocinema.utils.showErrorSnackbar
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -25,6 +26,7 @@ class SearchFragment : FilmFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(search_recyclerview_movies)
+        searchView.queryHint = resources.getStringArray(R.array.search_hints).getRandomItem()
         viewDisposables += RxSearchView.queryTextChanges(searchView)
                 .subscribeOn(uiScheduler)
                 .observeOn(uiScheduler)
@@ -51,17 +53,20 @@ class SearchFragment : FilmFragment() {
                     search_progressbar.isVisible = true
                     search_include_empty_state.isVisible = false
                     search_include_initial_state.isVisible = false
+                    filmAdapter.clear()
                 }
                 is SearchState.Empty -> {
                     search_include_empty_state.isVisible = true
                     search_include_initial_state.isVisible = false
                     search_progressbar.isVisible = false
+                    filmAdapter.clear()
                 }
                 is SearchState.Error -> {
                     view.showErrorSnackbar(R.string.search_error_message) { vm.retrySearch() }
                     search_include_empty_state.isVisible = false
                     search_include_initial_state.isVisible = false
                     search_progressbar.isVisible = false
+                    filmAdapter.clear()
                 }
             }
         }

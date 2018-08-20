@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.vladimirkondenko.yoyocinema.R
 import retrofit2.Retrofit
+import java.util.*
 
 inline fun <reified T> Retrofit.create(): T = this.create(T::class.java)
 
@@ -27,3 +28,5 @@ inline fun View.showErrorSnackbar(@StringRes message: Int, crossinline onRetry: 
         snackbar.dismiss()
     }
 }
+
+fun <T> Array<T>.getRandomItem() = this[Random().nextInt(this.size - 1)]

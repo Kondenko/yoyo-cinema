@@ -32,15 +32,18 @@ class FavoritesFragment : FilmFragment() {
                 is FavoritesState.Loading -> {
                     favorites_progressbar.isVisible = true
                     favorites_include_empty_state.isVisible = false
+                    this@FavoritesFragment.filmAdapter.clear()
                 }
                 is FavoritesState.Empty -> {
                     favorites_include_empty_state.isVisible = true
                     favorites_progressbar.isVisible = false
+                    this@FavoritesFragment.filmAdapter.clear()
                 }
                 is FavoritesState.Error -> {
                     view.showErrorSnackbar(R.string.favorites_error_message) { vm.getFavorites() }
                     favorites_include_empty_state.isVisible = false
                     favorites_progressbar.isVisible = false
+                    this@FavoritesFragment.filmAdapter.clear()
                 }
             }
         }
