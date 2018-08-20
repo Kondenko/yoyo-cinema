@@ -11,6 +11,13 @@
     >
 
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/film_details_group_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="film_details_checkbox_favorite,imageView4,imageView3,imageView2,film_details_textview_overview,film_details_textview_title,details_imageview_poster,film_details_textview_runtime,film_details_textview_avg_rating,film_details_textview_genres,film_details_textview_release,details_imageview_backdrop,film_details_toolbar"
+        />
+
     <ImageView
         android:id="@+id/details_imageview_backdrop"
         style="@style/Base.Widget.AppCompat.Toolbar"
@@ -184,13 +191,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/film_details_toolbar"
         app:layout_constraintTop_toTopOf="@+id/film_details_toolbar"
-        />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/film_details_group_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="film_details_toolbar,details_imageview_backdrop,film_details_checkbox_favorite,film_details_textview_release,film_details_textview_avg_rating,film_details_textview_overview,details_imageview_poster,film_details_textview_genres,film_details_textview_title,film_details_textview_runtime,imageView2,imageView3"
         />
 
     <ProgressBar
