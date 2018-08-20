@@ -11,5 +11,6 @@ val modules = mutableListOf(
         storageModule,
         searchModule,
         filmDetailsModule,
-        favoritesModule
+        favoritesModule,
+        filmModule
 )

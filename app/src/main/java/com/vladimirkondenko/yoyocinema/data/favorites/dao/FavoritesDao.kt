@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.vladimirkondenko.yoyocinema.data.favorites.model.FilmDetailsModel
-import io.reactivex.Flowable
 import io.reactivex.Single
 
 @Dao
@@ -21,7 +20,7 @@ interface FavoritesDao {
     fun isFavorite(id: Int): Single<Boolean>
 
     @Query("SELECT * FROM favorites")
-    fun getFavorites(): Flowable<FilmDetailsModel>
+    fun getFavorites(): Single<List<FilmDetailsModel>>
 
     @Query("SELECT * FROM favorites WHERE id == :id")
     fun getFavorite(id: Int): Single<FilmDetailsModel>

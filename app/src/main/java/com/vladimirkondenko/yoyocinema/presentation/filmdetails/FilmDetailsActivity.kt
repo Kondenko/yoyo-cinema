@@ -9,7 +9,6 @@ import androidx.core.view.isGone
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import com.squareup.picasso.Picasso
 import com.vladimirkondenko.yoyocinema.R
-import com.vladimirkondenko.yoyocinema.presentation.main.FilmDetailsState
 import kotlinx.android.synthetic.main.fragment_film_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

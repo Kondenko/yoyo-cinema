@@ -1,4 +1,4 @@
-package com.vladimirkondenko.yoyocinema.presentation.search
+package com.vladimirkondenko.yoyocinema.presentation.common
 
 import android.content.Context
 import android.view.View

@@ -9,4 +9,7 @@
     <string name="film_details_release_date_template">Relese date: %s</string>
     <string name="film_details_runtime_template">Runtime: %s</string>
 
+    <string name="main_bottomnav_item_search">Search</string>
+    <string name="main_bottomnav_item_favorites">Favorites</string>
+
 </resources>

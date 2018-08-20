@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.vladimirkondenko.yoyocinema.domain.favorites.SetFavorite
 import com.vladimirkondenko.yoyocinema.domain.films.usecase.GetDetails
-import com.vladimirkondenko.yoyocinema.presentation.main.FilmDetailsState
 
 class FilmDetailsViewModel(private val getDetails: GetDetails, private val setFavorite: SetFavorite) : ViewModel() {
 

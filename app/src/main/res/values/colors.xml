@@ -2,8 +2,10 @@
 <resources>
     <color name="colorPrimary">#ffff</color>
     <color name="colorPrimaryDark">#cacaca</color>
-    <color name="colorAccent">#000000</color>
-    <color name="colorFilmCardTextPrimary">#000000</color>
-    <color name="colorFilmCardTextSecondary">#c1000000</color>
+    <color name="colorAccent">#5e11ed</color>
+    <color name="colorTextPrimary">#000000</color>
+    <color name="colorTextSecondary">#c1000000</color>
     <color name="colorWhite">#ffff</color>
+    <color name="colorBottomNavItem">#000000</color>
+    <color name="colorBottomNavItemSelected">@color/colorAccent</color>
 </resources>

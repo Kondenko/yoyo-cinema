@@ -1,4 +1,4 @@
-package com.vladimirkondenko.yoyocinema.presentation.main
+package com.vladimirkondenko.yoyocinema.presentation.filmdetails
 
 import com.vladimirkondenko.yoyocinema.domain.films.model.FilmDetails
 
