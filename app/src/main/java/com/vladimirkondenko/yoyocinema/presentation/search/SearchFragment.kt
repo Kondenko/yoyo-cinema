@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import com.jakewharton.rxbinding2.widget.RxSearchView
 import com.vladimirkondenko.yoyocinema.R
 import com.vladimirkondenko.yoyocinema.presentation.common.FilmFragment
+import com.vladimirkondenko.yoyocinema.utils.showErrorSnackbar
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,18 +35,32 @@ class SearchFragment : FilmFragment() {
                 .subscribe(vm::search)
         vm.state(this) { state ->
             when (state) {
+                is SearchState.Initial -> {
+                    search_include_initial_state.isVisible = true
+                    search_progressbar.isVisible = false
+                    search_include_empty_state.isVisible = false
+                    filmAdapter.clear()
+                }
                 is SearchState.Success -> {
                     filmAdapter.items = ArrayList(state.model)
                     search_progressbar.isVisible = false
+                    search_include_initial_state.isVisible = false
+                    search_include_empty_state.isVisible = false
                 }
                 is SearchState.Loading -> {
                     search_progressbar.isVisible = true
+                    search_include_empty_state.isVisible = false
+                    search_include_initial_state.isVisible = false
                 }
-                is SearchState.Initial -> {
+                is SearchState.Empty -> {
+                    search_include_empty_state.isVisible = true
+                    search_include_initial_state.isVisible = false
                     search_progressbar.isVisible = false
-                    filmAdapter.clear()
                 }
-                else -> {
+                is SearchState.Error -> {
+                    view.showErrorSnackbar(R.string.search_error_message) { vm.retrySearch() }
+                    search_include_empty_state.isVisible = false
+                    search_include_initial_state.isVisible = false
                     search_progressbar.isVisible = false
                 }
             }

@@ -26,8 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:iconifiedByDefault="false"
-            android:queryHint="@string/search_hint"
             android:queryBackground="@android:color/transparent"
+            android:queryHint="@string/search_hint"
             >
 
         </SearchView>
@@ -59,6 +59,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible"
+        />
+
+    <include
+        android:id="@+id/search_include_initial_state"
+        layout="@layout/search_initial_state"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+        android:visibility="gone"
+        />
+
+    <include
+        android:id="@+id/search_include_empty_state"
+        android:visibility="gone"
+        layout="@layout/search_empty_state"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

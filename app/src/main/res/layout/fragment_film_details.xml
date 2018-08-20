@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/film_details_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/DetailsTheme"
@@ -227,6 +228,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/film_details_imageview_error"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_error_black_24dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.vladimirkondenko.yoyocinema.domain.favorites.SetFavorite
 import com.vladimirkondenko.yoyocinema.domain.films.usecase.GetDetails
+import com.vladimirkondenko.yoyocinema.presentation.filmdetails.FilmDetailsActivity.Companion.invalidId
 
 class FilmDetailsViewModel(private val getDetails: GetDetails, private val setFavorite: SetFavorite) : ViewModel() {
 
@@ -30,11 +31,15 @@ class FilmDetailsViewModel(private val getDetails: GetDetails, private val setFa
     }
 
     fun getDetails(id: Int) {
-        getDetails.execute(
-                id,
-                onSuccess = { (film, isFavorite) -> state.postValue(FilmDetailsState.Success(film, isFavorite)) },
-                onError = { state.postValue(FilmDetailsState.Error(it)) }
-        )
+        if (id != invalidId) {
+            getDetails.execute(
+                    id,
+                    onSuccess = { (film, isFavorite) -> state.postValue(FilmDetailsState.Success(film, isFavorite)) },
+                    onError = { state.postValue(FilmDetailsState.Error(it)) }
+            )
+        } else {
+            state.postValue(FilmDetailsState.Error(IllegalArgumentException("Illegal film id")))
+        }
     }
 
     fun onDetailsNotFound() {

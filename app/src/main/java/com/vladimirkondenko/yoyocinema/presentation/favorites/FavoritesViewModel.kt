@@ -19,7 +19,7 @@ class FavoritesViewModel(private val getFavorites: GetFavorites) : ViewModel() {
     fun getFavorites() {
         getFavorites.execute(
                 null,
-                onSuccess = { state.postValue(FavoritesState.Success(it)) },
+                onSuccess = { state.postValue(if (it.isEmpty()) FavoritesState.Empty() else FavoritesState.Success(it)) },
                 onError = { state.postValue(FavoritesState.Error(it)) })
     }
 

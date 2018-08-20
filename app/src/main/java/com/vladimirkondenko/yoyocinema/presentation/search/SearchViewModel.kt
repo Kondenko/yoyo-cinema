@@ -10,6 +10,8 @@ class SearchViewModel(private val searchMovie: SearchMovie) : ViewModel() {
 
     private val state = MutableLiveData<SearchState>()
 
+    private val latestQuery = MutableLiveData<String>()
+
     init {
         state.value = SearchState.Initial()
     }
@@ -20,14 +22,17 @@ class SearchViewModel(private val searchMovie: SearchMovie) : ViewModel() {
         state.value = SearchState.Initial()
     }
 
+    fun retrySearch() = latestQuery.value?.let { search(it) }
+
     fun search(query: String) {
         // TODO Use pagination
         val page = 1
         state.postValue(SearchState.Loading())
+        latestQuery.postValue(query)
         searchMovie.execute(
                 SearchMovie.Params(query, page),
                 onSuccess = {
-                    state.postValue(SearchState.Success(page, it))
+                    state.postValue(if (it.isEmpty()) SearchState.Empty(page) else SearchState.Success(page, it))
                 },
                 onError = { t -> state.value = SearchState.Error(page, t) }
         )

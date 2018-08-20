@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import com.squareup.picasso.Picasso
 import com.vladimirkondenko.yoyocinema.R
+import com.vladimirkondenko.yoyocinema.utils.showErrorSnackbar
 import kotlinx.android.synthetic.main.fragment_film_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,16 +20,25 @@ class FilmDetailsActivity : AppCompatActivity() {
 
     companion object {
         const val argId = "id"
+        const val invalidId = -1
     }
 
     private val vm: FilmDetailsViewModel by viewModel()
+
+    private var id: Int? = null
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_film_details)
-        if (intent?.extras != null) vm.getDetails(intent!!.extras!!.getInt(argId) ?: -1)
-        else vm.onDetailsNotFound()
+        if (intent?.extras != null) {
+            (intent!!.extras!!.getInt(argId) ?: invalidId).let {
+                id = it
+                vm.getDetails(it)
+            }
+        } else {
+            vm.onDetailsNotFound()
+        }
         // Draw the image behind the status bar
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setSupportActionBar(film_details_toolbar)
@@ -39,8 +50,10 @@ class FilmDetailsActivity : AppCompatActivity() {
         vm.state(this) {
             when (it) {
                 is FilmDetailsState.Success -> {
-                    film_details_progressbar.isVisible = false
                     showContent(true)
+                    film_details_progressbar.isVisible = false
+                    film_details_imageview_error.isVisible = false
+                    // Display the model
                     val film = it.film
                     film_details_checkbox_favorite.isChecked = it.isFavorite
                     Picasso.get().load(film.backdropPath).placeholder(R.drawable.ic_film_black_48dp).into(details_imageview_backdrop)
@@ -57,17 +70,20 @@ class FilmDetailsActivity : AppCompatActivity() {
                     else film_details_textview_overview.isGone = true
                 }
                 is FilmDetailsState.Loading -> {
-                    showContent(false)
                     film_details_progressbar.isVisible = true
+                    showContent(false)
+                    film_details_imageview_error.isVisible = false
+                }
+                is FilmDetailsState.Error -> {
+                    film_details_root.showErrorSnackbar(R.string.film_details_error_message) {
+                        id?.let(vm::getDetails)
+                    }
+                    film_details_imageview_error.isVisible = true
+                    film_details_progressbar.isVisible = false
+                    showContent(false)
                 }
                 is FilmDetailsState.FavoriteError -> {
-
-                }
-                else -> {
-                    // Disable the favorite CheckBox until the film is loaded successfully
-                    film_details_checkbox_favorite.isEnabled = false
-                    film_details_group_content.isVisible = false
-                    film_details_progressbar.isVisible = false
+                    Toast.makeText(this, R.string.film_details_favorite_error_message, Toast.LENGTH_LONG).show()
                 }
             }
         }

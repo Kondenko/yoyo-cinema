@@ -22,7 +22,7 @@
         android:id="@+id/main_bottomnav"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        app:elevation="4dp"
+        android:elevation="4dp"
         app:itemIconTint="@color/botomnav_icon_statelist"
         app:itemTextColor="@color/bottomnav_text_statelist"
         app:layout_constraintBottom_toBottomOf="parent"

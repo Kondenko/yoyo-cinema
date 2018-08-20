@@ -1,15 +1,25 @@
 <resources>
     <string name="app_name">YoyoCinema</string>
 
-    <string name="search_hint">Search films</string>
-
-    <string name="item_film_rating_template">%.1f/10</string>
-
-    <string name="film_details_review_numbers_template">Based on %d reviews</string>
-    <string name="film_details_release_date_template">Relese date: %s</string>
-    <string name="film_details_runtime_template">Runtime: %s</string>
+    <string name="all_action_retry">Retry</string>
 
     <string name="main_bottomnav_item_search">Search</string>
     <string name="main_bottomnav_item_favorites">Favorites</string>
+
+    <string name="item_film_rating_template">%.1f/10</string>
+
+    <string name="search_hint">Search films</string>
+    <string name="search_empty_state">No films found</string>
+    <string name="search_initial_state">Search for films</string>
+    <string name="search_error_message">Couldn\'t load films</string>
+
+    <string name="favorites_empty_state">No favorite films</string>
+    <string name="favorites_error_message">Couldn\'t load favorites</string>
+
+    <string name="film_details_review_numbers_template">%d reviews</string>
+    <string name="film_details_release_date_template">Release date: %s</string>
+    <string name="film_details_runtime_template">Runtime: %s</string>
+    <string name="film_details_error_message">Unable to load film details</string>
+    <string name="film_details_favorite_error_message">Can\'t determine if the film is marked as favorite</string>
 
 </resources>
