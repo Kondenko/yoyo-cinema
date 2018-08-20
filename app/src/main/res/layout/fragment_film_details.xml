@@ -11,8 +11,8 @@
 
 
     <ImageView
-        style="@style/Base.Widget.AppCompat.Toolbar"
         android:id="@+id/details_imageview_backdrop"
+        style="@style/Base.Widget.AppCompat.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
@@ -180,19 +180,19 @@
         />
 
     <androidx.appcompat.widget.Toolbar
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
         android:id="@+id/film_details_toolbar"
-        tools:title="Title"
         android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
         android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
+        tools:title="Title"
         />
 
     <CheckBox
@@ -209,6 +209,24 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/film_details_toolbar"
         app:layout_constraintTop_toTopOf="@+id/film_details_toolbar"
+        />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/film_details_group_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="film_details_toolbar,details_imageview_backdrop,film_details_checkbox_favorite,film_details_textview_reviews_number,film_details_textview_release,imageView3,film_details_textview_avg_rating,film_details_textview_overview,details_imageview_poster,film_details_textview_genres,film_details_textview_title,film_details_textview_runtime"
+        />
+
+    <ProgressBar
+        android:id="@+id/film_details_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

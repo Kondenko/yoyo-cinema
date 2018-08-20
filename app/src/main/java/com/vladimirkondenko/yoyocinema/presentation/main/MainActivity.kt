@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.transaction
 import com.vladimirkondenko.yoyocinema.R
+import com.vladimirkondenko.yoyocinema.domain.search.model.Film
 import com.vladimirkondenko.yoyocinema.presentation.favorites.FavoritesFragment
 import com.vladimirkondenko.yoyocinema.presentation.filmdetails.FilmDetailsActivity
 import com.vladimirkondenko.yoyocinema.presentation.search.SearchFragment
@@ -23,9 +24,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        searchFragment.filmClicks().subscribe {
-            startActivity<FilmDetailsActivity>(bundleOf(FilmDetailsActivity.argId to it.id))
-        }
+        searchFragment.filmClicks().subscribe(this::openDetails)
+        favoritesFragment.filmClicks().subscribe(this::openDetails)
         main_bottomnav.setOnNavigationItemSelectedListener {
             supportFragmentManager.transaction {
                 val fragment = when (it.itemId) {
@@ -43,5 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
         if (savedInstanceState == null) main_bottomnav.selectedItemId = R.id.item_bottomnav_search
     }
+
+    private fun openDetails(film: Film) = startActivity<FilmDetailsActivity>(bundleOf(FilmDetailsActivity.argId to film.id))
 
 }

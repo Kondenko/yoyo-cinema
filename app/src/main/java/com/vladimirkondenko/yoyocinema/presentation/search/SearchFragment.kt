@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.jakewharton.rxbinding2.widget.RxSearchView
 import com.vladimirkondenko.yoyocinema.R
 import com.vladimirkondenko.yoyocinema.presentation.common.FilmFragment
@@ -32,15 +33,22 @@ class SearchFragment : FilmFragment() {
                 .map { it.toString() }
                 .subscribe(vm::search)
         vm.state(this) { state ->
-            // TODO Handle each state
-            when(state) {
+            when (state) {
+                is SearchState.Success -> {
+                    filmAdapter.items = ArrayList(state.model)
+                    search_progressbar.isVisible = false
+                }
+                is SearchState.Loading -> {
+                    search_progressbar.isVisible = true
+                }
                 is SearchState.Initial -> {
+                    search_progressbar.isVisible = false
                     filmAdapter.clear()
                 }
+                else -> {
+                    search_progressbar.isVisible = false
+                }
             }
-        }
-        vm.searchResults(this) {
-            filmAdapter.items = ArrayList(it)
         }
     }
 

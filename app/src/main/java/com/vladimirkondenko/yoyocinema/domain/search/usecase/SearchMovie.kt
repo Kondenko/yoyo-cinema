@@ -24,7 +24,11 @@ class SearchMovie(private val searchRepository: SearchRepository, uiScheduler: S
                 }
                 .map {
                     it.map {
-                        val year = it.releaseDate?.slice(0..3)?.toInt() // awkwardly parsing the year from a yyyy-mm-dd formatted date
+                        val year = try {
+                            it.releaseDate?.slice(0..3)?.toInt() // awkwardly parsing the year from a yyyy-mm-dd formatted date
+                        } catch (e: StringIndexOutOfBoundsException) {
+                            null
+                        }
                         val posterUrl = it.posterPath?.let { path -> ImageAddress.getUrlForImage(path, ImageAddress.Size.SMALL) } ?: ""
                         Film(it.id ?: 0, it.title ?: "", year ?: -1, it.voteAverage ?: -1f, posterUrl)
                     }

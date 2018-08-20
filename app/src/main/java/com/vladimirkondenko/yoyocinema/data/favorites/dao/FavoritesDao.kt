@@ -1,16 +1,13 @@
 package com.vladimirkondenko.yoyocinema.data.favorites.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.vladimirkondenko.yoyocinema.data.favorites.model.FilmDetailsModel
 import io.reactivex.Single
 
 @Dao
 interface FavoritesDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun favorite(film: FilmDetailsModel)
 
     @Delete

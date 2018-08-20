@@ -6,11 +6,11 @@ import io.reactivex.Completable
 
 class FavoritesRepository(private val favoritesDao: FavoritesDao) {
 
-    fun addToFavorites(film: FilmDetailsModel) = Completable.fromAction {
+    fun addToFavorites(film: FilmDetailsModel): Completable = Completable.fromAction {
         favoritesDao.favorite(film)
     }
 
-    fun removeFromFavorites(film: FilmDetailsModel) = Completable.fromAction {
+    fun removeFromFavorites(film: FilmDetailsModel): Completable = Completable.fromAction {
         favoritesDao.unfavorite(film)
     }
 

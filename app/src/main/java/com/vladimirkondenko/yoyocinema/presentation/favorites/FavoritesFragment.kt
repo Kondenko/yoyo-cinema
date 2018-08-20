@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.vladimirkondenko.yoyocinema.R
 import com.vladimirkondenko.yoyocinema.presentation.common.FilmFragment
 import kotlinx.android.synthetic.main.fragment_favorites.*
@@ -23,10 +24,22 @@ class FavoritesFragment : FilmFragment() {
         vm.state(this) { state ->
             when(state) {
                 is FavoritesState.Success -> {
+                    favorites_progressbar.isVisible = false
                     filmAdapter.items = ArrayList(state.model)
+                }
+                is FavoritesState.Loading -> {
+                    favorites_progressbar.isVisible = true
+                }
+                else -> {
+                    favorites_progressbar.isVisible = false
                 }
             }
         }
+        vm.getFavorites()
+    }
+
+    override fun onResume() {
+        super.onResume()
         vm.getFavorites()
     }
 

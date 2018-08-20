@@ -18,7 +18,14 @@ class FilmAdapter(context: Context) : BaseAdapter<Film, FilmAdapter.FilmViewHold
 
         override fun bindItem(item: Film) {
             super.bindItem(item)
-            Picasso.get().load(item.posterUrl).fit().centerCrop().into(view.findViewById<ImageView>(R.id.item_film_imageview_poster))
+            if (item.posterUrl.isNotBlank()) {
+                Picasso.get()
+                        .load(item.posterUrl)
+                        .fit()
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_film_black_48dp)
+                        .into(view.findViewById<ImageView>(R.id.item_film_imageview_poster))
+            }
             view.findViewById<TextView>(R.id.item_film_textview_title).text = item.title
             view.findViewById<TextView>(R.id.item_film_textview_year).text = item.year.toString()
             view.findViewById<TextView>(R.id.item_film_textview_rating).text = context.getString(R.string.item_film_rating_template, item.rating)

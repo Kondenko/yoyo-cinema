@@ -2,6 +2,7 @@ package com.vladimirkondenko.yoyocinema.presentation.common
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vladimirkondenko.yoyocinema.di.Ui
 import com.vladimirkondenko.yoyocinema.domain.search.model.Film
@@ -20,8 +21,6 @@ abstract class FilmFragment : BaseFragment() {
 
     protected val filmAdapter: FilmAdapter by inject { parametersOf(context as Any) }
 
-    protected val layoutManager: RecyclerView.LayoutManager by inject { parametersOf(context as Any) }
-
     private val filmClicks: PublishSubject<Film> by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,13 +29,13 @@ abstract class FilmFragment : BaseFragment() {
     }
 
     fun setupRecyclerView(recyclerView: RecyclerView) {
-        if (recyclerView.layoutManager == null) recyclerView.layoutManager = layoutManager
-        if (recyclerView.adapter == null) recyclerView.adapter = filmAdapter
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        recyclerView.adapter = filmAdapter
     }
 
     /**
      * Get an observable of the film list item clicks
      */
-    fun filmClicks() = filmClicks as Observable<Film>
+    fun filmClicks(): Observable<Film> = filmClicks
 
 }
