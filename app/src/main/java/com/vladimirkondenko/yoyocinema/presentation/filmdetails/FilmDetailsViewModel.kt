@@ -4,10 +4,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.vladimirkondenko.yoyocinema.domain.favorites.SetFavorite
 import com.vladimirkondenko.yoyocinema.domain.films.usecase.GetDetails
 import com.vladimirkondenko.yoyocinema.presentation.main.FilmDetailsState
 
-class FilmDetailsViewModel(private val getDetails: GetDetails) : ViewModel() {
+class FilmDetailsViewModel(private val getDetails: GetDetails, private val setFavorite: SetFavorite) : ViewModel() {
 
     private val state = MutableLiveData<FilmDetailsState>()
 
@@ -17,10 +18,22 @@ class FilmDetailsViewModel(private val getDetails: GetDetails) : ViewModel() {
         state.value = FilmDetailsState.Loading()
     }
 
+    /**
+     * Mark a film as favorite if it has been loaded successfully before.
+     */
+    fun setFavorite(favorite: Boolean) {
+        state.value.takeIf { it is FilmDetailsState.Success }?.let {
+            setFavorite.execute(
+                    SetFavorite.Params((it as FilmDetailsState.Success).film, favorite),
+                    onError = { state.postValue(FilmDetailsState.FavoriteError(it)) }
+            )
+        }
+    }
+
     fun getDetails(id: Int) {
         getDetails.execute(
                 id,
-                onSuccess = { state.postValue(FilmDetailsState.Success(it)) },
+                onSuccess = { (film, isFavorite) -> state.postValue(FilmDetailsState.Success(film, isFavorite)) },
                 onError = { state.postValue(FilmDetailsState.Error(it)) }
         )
     }

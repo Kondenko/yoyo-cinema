@@ -3,7 +3,8 @@ package com.vladimirkondenko.yoyocinema.presentation.main
 import com.vladimirkondenko.yoyocinema.domain.films.model.FilmDetails
 
 sealed class FilmDetailsState {
-    class Success(val model: FilmDetails) : FilmDetailsState()
+    class Success(val film: FilmDetails, val isFavorite: Boolean) : FilmDetailsState()
     class Loading : FilmDetailsState()
-    class Error(val exception: Throwable) : FilmDetailsState()
+    open class Error(val exception: Throwable) : FilmDetailsState()
+    class FavoriteError(exception: Throwable) : Error(exception)
 }

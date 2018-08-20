@@ -1,10 +1,12 @@
 package com.vladimirkondenko.yoyocinema.presentation.filmdetails
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
+import com.jakewharton.rxbinding2.widget.RxCompoundButton
 import com.squareup.picasso.Picasso
 import com.vladimirkondenko.yoyocinema.R
 import com.vladimirkondenko.yoyocinema.presentation.main.FilmDetailsState
@@ -14,14 +16,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmDetailsActivity : AppCompatActivity() {
 
-    private val TAG = this.javaClass.simpleName
-
     companion object {
         const val argId = "id"
     }
 
     private val vm: FilmDetailsViewModel by viewModel()
 
+    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_film_details)
@@ -39,7 +40,9 @@ class FilmDetailsActivity : AppCompatActivity() {
             // TODO handle each state
             when (it) {
                 is FilmDetailsState.Success -> {
-                    val film = it.model
+                    film_details_checkbox_favorite.isEnabled = true
+                    film_details_checkbox_favorite.isChecked = it.isFavorite
+                    val film = it.film
                     Picasso.get().load(film.backdropPath).into(details_imageview_backdrop)
                     Picasso.get().load(film.posterPath).into(details_imageview_poster)
                     film_details_textview_title.text = film.title
@@ -53,8 +56,13 @@ class FilmDetailsActivity : AppCompatActivity() {
                     if (!film.overview.isEmpty()) film_details_textview_overview.text = film.overview
                     else film_details_textview_overview.isGone = true
                 }
+                else -> {
+                    // Disable the favorite CheckBox until the film is loaded successfully
+                    film_details_checkbox_favorite.isEnabled = false
+                }
             }
         }
+        RxCompoundButton.checkedChanges(film_details_checkbox_favorite).subscribe { vm.setFavorite(it) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

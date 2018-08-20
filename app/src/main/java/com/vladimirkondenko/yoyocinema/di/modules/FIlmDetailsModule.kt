@@ -13,8 +13,8 @@ import org.koin.dsl.module.module
 import retrofit2.Retrofit
 
 val filmDetailsModule = module {
-    viewModel { FilmDetailsViewModel(get()) }
-    single { GetDetails(get(), get(Ui), get(Worker), get(defaultLocale)) }
+    viewModel { FilmDetailsViewModel(get(), get()) }
+    single { GetDetails(get(), get(), get(Ui), get(Worker), get(defaultLocale)) }
     single { FilmDetailsRepository(get()) }
     single { get<Retrofit>().create<FilmDetailsService>() }
 }

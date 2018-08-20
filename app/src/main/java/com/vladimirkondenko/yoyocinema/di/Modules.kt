@@ -1,9 +1,6 @@
 package com.vladimirkondenko.yoyocinema.di
 
-import com.vladimirkondenko.yoyocinema.di.modules.filmDetailsModule
-import com.vladimirkondenko.yoyocinema.di.modules.mainModule
-import com.vladimirkondenko.yoyocinema.di.modules.networkModule
-import com.vladimirkondenko.yoyocinema.di.modules.searchModule
+import com.vladimirkondenko.yoyocinema.di.modules.*
 
 /**
  * A mutable list of all required modules, where we can replace and add modules whenever necessary.
@@ -11,6 +8,8 @@ import com.vladimirkondenko.yoyocinema.di.modules.searchModule
 val modules = mutableListOf(
         mainModule,
         networkModule,
+        storageModule,
         searchModule,
-        filmDetailsModule
+        filmDetailsModule,
+        favoritesModule
 )
